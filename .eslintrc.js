@@ -15,9 +15,9 @@ module.exports = {
   },
   plugins: ['react', 'prettier'],
   rules: {
-    'semi': ['error', 'never'],
-    'quotes': ['error', 'single'],
-    'indent': ["error", 2],
+    // 'semi': ['error', 'never'],
+    // 'quotes': ['error', 'single'],
+    // 'indent': ["error", 2],
     'linebreak-style': ['error', 'unix'],
     'no-var': 'error',
     'no-console': ['warn', { allow: ['warn', 'error'] }],
