@@ -8,6 +8,9 @@ const webpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
   // https://webpack.js.org/configuration/devtool/
   devtool: 'cheap-module-eval-source-map',
+  output: {
+    publicPath: '/',
+  },
   plugins: [
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
@@ -16,9 +19,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
   ],
   devServer: {
-    contentBase: utils.resolvePath('public'),
     port: 3000,
     open: true,
+    historyApiFallback: true,
+    contentBase: utils.resolvePath('public'),
   },
   performance: {
     hints: false,
