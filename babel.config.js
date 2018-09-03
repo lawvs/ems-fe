@@ -1,5 +1,9 @@
 // https://babeljs.io/
 
 module.exports = {
-  presets: [['@babel/env', { modules: false }], '@babel/react'],
+  presets: [
+    [require('@babel/preset-env'), { modules: false }],
+    require('@babel/preset-react'),
+  ],
+  plugins: [require('@babel/plugin-proposal-class-properties')],
 }

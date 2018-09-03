@@ -13,6 +13,7 @@ module.exports = {
       jsx: true,
     },
   },
+  parser: 'babel-eslint',
   plugins: ['react', 'prettier'],
   rules: {
     // 'semi': ['error', 'never'],
