@@ -1,40 +1,87 @@
 import React, { Component, Fragment } from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { get } from 'lodash'
 
 class LoginPage extends Component {
   state = {
-    redirectToReferrer: false,
+    username: '',
+    password: '',
+    message: '',
+    loading: false,
   }
-  handleSubmit = () => {
-    this.setState({ redirectToReferrer: true })
-    return true
+
+  handleInputChange = event => {
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const name = target.name
+
+    this.setState({
+      message: '', // clear message when input change
+      [name]: value,
+    })
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    const { loginAction } = this.props
+    const { username, password } = this.state
+    // TODO login
+    const login = () => {
+      if (username === 'root' && password === '123') {
+        loginAction({ username, password })
+        return
+      }
+      this.setState({ message: '用户名或密码错误' })
+    }
+    login()
   }
 
   render() {
-    const { routerData, match } = this.props
+    const { isLogin } = this.props
+
     const { from } = this.props.location.state || {
       from: { pathname: '/dashboard' },
     }
-    const { redirectToReferrer } = this.state
 
-    if (redirectToReferrer) {
-      return (
-        <Redirect
-          to={{
-            pathname: from.pathname,
-            state: { authenticated: true },
-          }}
-        />
-      )
+    if (isLogin) {
+      return <Redirect to={from.pathname} />
     }
     return (
       <form onSubmit={this.handleSubmit}>
-        <input placeholder="Username" />
-        <input type="password" placeholder="Password" />
-        <button>登录</button>
+        <input
+          name="username"
+          value={this.state.username}
+          onChange={this.handleInputChange}
+          placeholder="Username"
+        />
+        <input
+          name="password"
+          value={this.state.password}
+          onChange={this.handleInputChange}
+          type="password"
+          placeholder="Password"
+        />
+        <button type="submit">登录</button>
+        <span>{this.state.message}</span>
       </form>
     )
   }
 }
 
-export default LoginPage
+const mapStateToProps = state => ({
+  isLogin: get(state, 'session.isLogin', false),
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  loginAction: payload =>
+    dispatch({
+      type: '@@Session/login',
+      ...payload,
+    }),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage)
