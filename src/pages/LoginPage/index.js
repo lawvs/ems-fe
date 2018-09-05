@@ -3,38 +3,19 @@ import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { get } from 'lodash'
 
+import { login } from '../../redux/auth'
 class LoginPage extends Component {
   state = {
-    username: '',
-    password: '',
-    message: '',
-    loading: false,
-  }
-
-  handleInputChange = event => {
-    const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
-    const name = target.name
-
-    this.setState({
-      message: '', // clear message when input change
-      [name]: value,
-    })
+    message: '', // UNUSED
+    loading: false, // UNUSED
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    const { loginAction } = this.props
-    const { username, password } = this.state
-    // TODO login
-    const login = () => {
-      if (username === 'root' && password === '123') {
-        loginAction({ username, password })
-        return
-      }
-      this.setState({ message: '用户名或密码错误' })
-    }
-    login()
+    const { login } = this.props
+    const username = this.refs.username.value
+    const password = this.refs.password.value
+    login({ username, password })
   }
 
   render() {
@@ -49,19 +30,8 @@ class LoginPage extends Component {
     }
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          name="username"
-          value={this.state.username}
-          onChange={this.handleInputChange}
-          placeholder="Username"
-        />
-        <input
-          name="password"
-          value={this.state.password}
-          onChange={this.handleInputChange}
-          type="password"
-          placeholder="Password"
-        />
+        <input ref="username" placeholder="Username" />
+        <input ref="password" type="password" placeholder="Password" />
         <button type="submit">登录</button>
         <span>{this.state.message}</span>
       </form>
@@ -70,15 +40,11 @@ class LoginPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLogin: get(state, 'session.isLogin', false),
+  isLogin: get(state, 'auth.isLogin', false),
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loginAction: payload =>
-    dispatch({
-      type: '@@Session/login',
-      ...payload,
-    }),
+  login: payload => dispatch(login(payload)),
 })
 
 export default connect(
