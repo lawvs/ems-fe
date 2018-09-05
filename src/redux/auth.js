@@ -12,9 +12,6 @@ const initState = {
 
 // Reducer
 export function reducer(state = initState, action) {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(action) // eslint-disable-line no-console
-  }
   const { type } = action
   switch (type) {
     case LOGIN:
