@@ -2,14 +2,12 @@
 
 module.exports = {
   presets: [
-    [
-      require('@babel/preset-env'),
-      {
-        modules: false,
-        useBuiltIns: 'usage', // import('core-js')
-      },
-    ],
+    [require('@babel/preset-env'), { modules: false }],
     require('@babel/preset-react'),
   ],
-  plugins: [require('@babel/plugin-proposal-class-properties')],
+  plugins: [
+    require('@babel/plugin-transform-runtime'), // require('@babel/runtime')
+    require('@babel/plugin-proposal-class-properties'),
+    require('@babel/plugin-transform-async-to-generator'),
+  ],
 }

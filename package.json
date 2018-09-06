@@ -5,13 +5,14 @@
   "private": true,
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack-dev-server --config config/webpack.dev.conf.js --mode=development --colors --watch --progress --hot",
+    "dev": "webpack-dev-server --config config/webpack.dev.conf.js --mode=development --colors --watch --hot",
     "build": "webpack --config config/webpack.prod.conf.js --mode=production --colors",
     "lint": "eslint --ext .js src",
     "lint:fix": "eslint --fix --ext .js src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.10",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -22,13 +23,14 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-transform-async-to-generator": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
-    "core-js": "^2.5.7",
     "css-loader": "^1.0.0",
     "eslint": "^5.4.0",
     "eslint-plugin-prettier": "^2.6.2",
