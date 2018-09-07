@@ -1,5 +1,7 @@
 // https://github.com/reduxjs/redux
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+// https://github.com/reduxjs/redux-thunk
+import thunk from 'redux-thunk'
 
 import { reducer as auth } from './auth'
 
@@ -19,12 +21,13 @@ if (DEBUG) {
   // https://github.com/zalmoxisus/redux-devtools-extension
   store = createStore(
     reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__
-      ? window.__REDUX_DEVTOOLS_EXTENSION__()
-      : debugMiddleware
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(applyMiddleware(thunk))
+      : applyMiddleware(debugMiddleware, thunk)
   )
 } else {
-  store = createStore(reducer)
+  // production
+  store = createStore(reducer, applyMiddleware(thunk))
 }
 
 export default store
