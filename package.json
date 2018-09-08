@@ -12,10 +12,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/runtime": "^7.0.0",
+    "i18next": "^11.7.0",
     "lodash": "^4.17.10",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-i18next": "^7.11.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
