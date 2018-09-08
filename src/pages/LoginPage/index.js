@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 import { get } from 'lodash'
 
 import { login, loginState as loginStateEnums } from '../../redux/auth'
+@translate()
 class LoginPage extends Component {
   state = {
     message: '',
@@ -40,7 +42,7 @@ class LoginPage extends Component {
   }
 
   render() {
-    const { loginState } = this.props
+    const { loginState, t } = this.props
     const { message } = this.state
 
     const { from } = this.props.location.state || {
@@ -54,16 +56,16 @@ class LoginPage extends Component {
       <form onSubmit={this.handleSubmit}>
         <input
           ref="username"
-          placeholder="Username"
+          placeholder={t('Username')}
           onChange={this.handleChange}
         />
         <input
           ref="password"
           type="password"
-          placeholder="Password"
+          placeholder={t('Password')}
           onChange={this.handleChange}
         />
-        <button type="submit">登录</button>
+        <button type="submit">{t('Log in')}</button>
         <span>{message}</span>
       </form>
     )

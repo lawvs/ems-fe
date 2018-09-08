@@ -4,11 +4,13 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 
 import { reducer as auth } from './auth'
+import { reducer as config } from './config'
 
 const DEBUG = process.env.NODE_ENV === 'development'
 
 const reducer = combineReducers({
   auth,
+  config,
 })
 
 let store
