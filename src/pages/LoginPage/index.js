@@ -9,9 +9,12 @@ class LoginPage extends Component {
     message: '',
   }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.message !== '') {
-      this.setState({ message: nextProps.message })
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.message !== prevProps.message && // message change
+      this.props.message !== this.state.message
+    ) {
+      this.setState({ message: this.props.message })
     }
   }
 
