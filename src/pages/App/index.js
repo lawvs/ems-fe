@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 // https://github.com/ReactTraining/react-router
 import {
-  BrowserRouter as Router,
-  // HashRouter as Router,
+  // BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Redirect,
   Switch,
