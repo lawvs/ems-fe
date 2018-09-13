@@ -1,4 +1,4 @@
-const url = require('url');
+const url = require('url')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -11,6 +11,7 @@ const publicPath = url.parse(publicUrl).pathname
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   bail: true,
+  devtool: process.env.CI ? 'source-map' : false,
   output: {
     filename: '[name].[chunkhash:8].js',
     publicPath: publicPath,
