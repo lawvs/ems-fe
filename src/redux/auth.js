@@ -12,6 +12,7 @@ const LOGOUT = '@@Auth/logout'
  * @readonly
  * @constant
  * @enum {string}
+ * @export
  * */
 const loginState = {
   NOT_LOGGED_IN: 'NOT_LOGGED_IN',
@@ -41,7 +42,7 @@ export function reducer(state = initState, action) {
         loginState: loginState.LOGGING_IN,
         message: '', // clear message when logging in
       }
-    case LOGIN_THEN:
+    case LOGIN_THEN: {
       const { payload } = action
       return {
         ...state,
@@ -49,28 +50,31 @@ export function reducer(state = initState, action) {
         message: '',
         user: payload,
       }
+    }
     case LOGIN_CATCH:
-    case LOGOUT:
+    case LOGOUT: {
       const { error } = action
       return {
         ...state,
         loginState: loginState.NOT_LOGGED_IN,
         user: {},
-        message: error && get(error, 'message'),
+        message: error && get(error, 'message', ''),
       }
+    }
     default:
       return state
   }
 }
 
 // Action Creators
-export function login(payload) {
-  const { username, password } = payload
+export function login({ username, password }) {
   return async dispatch => {
     dispatch({ type: LOGIN })
     // TODO login
-    const response = await Promise.resolve()
-    if (username !== 'root' || password !== '123') {
+    const response = await new Promise(resolve =>
+      setTimeout(() => resolve({ username, password }), 1000)
+    )
+    if (response.username !== 'root' || response.password !== '123') {
       dispatch({ type: LOGIN_CATCH, error: { message: '用户名或密码错误' } })
       return
     }

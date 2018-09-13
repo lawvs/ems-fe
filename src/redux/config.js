@@ -1,5 +1,3 @@
-import { get } from 'lodash'
-
 import i18next, { language } from '../i18n'
 
 // Actions
@@ -12,7 +10,7 @@ const initState = {
 export function reducer(state = initState, action) {
   const { type } = action
   switch (type) {
-    case CHANGE_LNG:
+    case CHANGE_LNG: {
       const {
         payload: { lng },
       } = action
@@ -20,6 +18,7 @@ export function reducer(state = initState, action) {
         ...state,
         lng,
       }
+    }
     default:
       return state
   }

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, Redirect, Route, Switch } from 'react-router-dom'
 import { translate } from 'react-i18next'
@@ -40,6 +41,13 @@ const DashboardPage = props => {
       </Switch>
     </div>
   )
+}
+
+DashboardPage.propTypes = {
+  lng: PropTypes.string,
+  isLogin: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
+  changeLng: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

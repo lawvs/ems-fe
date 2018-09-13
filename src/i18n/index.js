@@ -1,8 +1,5 @@
-import { zipObject } from 'lodash'
 // https://www.i18next.com/
 import { createInstance } from 'i18next'
-// https://react.i18next.com/
-import { reactI18nextModule } from 'react-i18next'
 
 import en_US from './en-US'
 import ja_JP from './ja-JP'

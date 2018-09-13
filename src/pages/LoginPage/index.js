@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
@@ -7,8 +8,16 @@ import { get } from 'lodash'
 import { login, loginState as loginStateEnums } from '../../redux/auth'
 @translate()
 class LoginPage extends Component {
+  static propTypes = {
+    message: PropTypes.string,
+    login: PropTypes.func.isRequired,
+    loginState: PropTypes.string.isRequired,
+  }
+
   state = {
     message: '',
+    username: '',
+    password: '',
   }
 
   componentDidUpdate(prevProps) {
@@ -22,8 +31,7 @@ class LoginPage extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    const username = this.refs.username.value
-    const password = this.refs.password.value
+    const { username, password } = this.state
     // valid
     if (!username) {
       this.setState({ message: '请输入用户名' })
@@ -55,12 +63,12 @@ class LoginPage extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          ref="username"
+          ref={input => (this.username = input.value)}
           placeholder={t('Username')}
           onChange={this.handleChange}
         />
         <input
-          ref="password"
+          ref={input => (this.password = input.value)}
           type="password"
           placeholder={t('Password')}
           onChange={this.handleChange}

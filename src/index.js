@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 // https://github.com/reduxjs/react-redux
 import { Provider } from 'react-redux'
+// https://react.i18next.com/
 import { I18nextProvider } from 'react-i18next'
 
 import store from './redux'
