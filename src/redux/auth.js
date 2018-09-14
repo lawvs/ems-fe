@@ -1,5 +1,6 @@
 // @ts-check
 import { get } from 'lodash'
+import { loginApi } from '../api'
 
 // Actions
 const LOGIN = '@@Auth/login'
@@ -67,21 +68,24 @@ export function reducer(state = initState, action) {
 }
 
 // Action Creators
-export function login({ username, password }) {
+/**
+ * @param {{username: string, password: string}} payload
+ */
+export function login(payload) {
   return async dispatch => {
     dispatch({ type: LOGIN })
-    // TODO login
-    const response = await new Promise(resolve =>
-      setTimeout(() => resolve({ username, password }), 1000)
-    )
-    if (response.username !== 'root' || response.password !== '123') {
-      dispatch({ type: LOGIN_CATCH, error: { message: '用户名或密码错误' } })
+    const resp = await loginApi(payload)
+    if (!resp.ok) {
+      dispatch({ type: LOGIN_CATCH, error: { message: resp.statusText } })
       return
     }
-    dispatch({ type: LOGIN_THEN, payload: { username } })
+    dispatch({ type: LOGIN_THEN, payload: { ...resp.body } })
   }
 }
 
+/**
+ * @returns {{type: string, payload?, error?}}
+ */
 export function logout() {
   return { type: LOGOUT }
 }
