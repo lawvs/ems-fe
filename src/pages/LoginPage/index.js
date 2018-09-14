@@ -45,8 +45,14 @@ class LoginPage extends Component {
     login({ username, password })
   }
 
-  handleChange = e => {
-    this.setState({ message: '' }) // clear message when input change
+  handleChange = event => {
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const name = target.name
+    this.setState({
+      message: '', // clear message when input change
+      [name]: value,
+    })
   }
 
   render() {
@@ -63,12 +69,12 @@ class LoginPage extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          ref={input => (this.username = input.value)}
+          name="username"
           placeholder={t('Username')}
           onChange={this.handleChange}
         />
         <input
-          ref={input => (this.password = input.value)}
+          name="password"
           type="password"
           placeholder={t('Password')}
           onChange={this.handleChange}
