@@ -42,12 +42,16 @@ module.exports = {
     new CleanWebpackPlugin(['dist'], {
       root: utils.resolvePath(),
     }),
-    new CopyWebpackPlugin([
-      {
-        from: utils.resolvePath('public'),
-        to: '[name].[ext]',
-        ignore: ['index.html'],
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: utils.resolvePath('public'),
+          to: '[name].[ext]',
+          globOptions: {
+            ignore: ['index.html'],
+          },
+        },
+      ],
+    }),
   ],
 }
